@@ -1,0 +1,8 @@
+rtc.c:13:9:RTC_getSeconds	16	static
+rtc.c:24:9:RTC_getMins	16	static
+rtc.c:36:9:RTC_getHours	16	static
+rtc.c:48:6:RTC_init	24	static
+rtc.c:59:6:RTC_getTime	24	static
+rtc.c:66:6:conv_BCD	32	static
+rtc.c:83:6:RTC_updateMins	24	static
+rtc.c:90:6:RTC_updateHours	24	static

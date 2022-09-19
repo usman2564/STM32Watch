@@ -1,0 +1,8 @@
+oled.c:44:6:OLED_init	8	static
+oled.c:88:6:OLED_sendCommand	24	static
+oled.c:98:6:OLED_setFillColor	24	static
+oled.c:116:6:OLED_drawRect	24	static
+oled.c:138:6:OLED_setCursor	16	static
+oled.c:150:6:OLED_drawChar_CMD	24	static
+oled.c:168:6:OLED_drawString	32	static
+oled.c:178:6:OLED_drawChar	24	static
