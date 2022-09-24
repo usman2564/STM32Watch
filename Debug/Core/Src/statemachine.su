@@ -1,0 +1,5 @@
+statemachine.c:10:6:Watch_init	40	static
+statemachine.c:22:6:Watch_Get_Time_State	16	static
+statemachine.c:32:6:Watch_Display_Time_State	56	static
+statemachine.c:43:6:Watch_Get_Date_State	16	static
+statemachine.c:53:6:Watch_Display_Date_State	32	static

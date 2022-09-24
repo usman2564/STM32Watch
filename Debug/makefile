@@ -54,8 +54,8 @@ all: main-build
 main-build: Watch.elf secondary-outputs
 
 # Tool invocations
-Watch.elf: $(OBJS) $(USER_OBJS) C:\Users\usman\OneDrive\Desktop\Projects\Watch\STM32L010C6TX_FLASH.ld
-	arm-none-eabi-gcc -o "Watch.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\Users\usman\OneDrive\Desktop\Projects\Watch\STM32L010C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Watch.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Watch.elf: $(OBJS) $(USER_OBJS) C:\Users\usman\OneDrive\Desktop\Projects\Watch\STM32Watch\STM32L010C6TX_FLASH.ld
+	arm-none-eabi-gcc -o "Watch.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\Users\usman\OneDrive\Desktop\Projects\Watch\STM32Watch\STM32L010C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Watch.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
