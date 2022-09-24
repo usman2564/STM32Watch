@@ -1,4 +1,5 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
+Core/Src/statemachine.o: ../Core/Src/statemachine.c \
+ ../Core/Inc/statemachine.h ../Core/Inc/main.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h \
  ../Core/Inc/stm32l0xx_hal_conf.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_rcc.h \
@@ -27,9 +28,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_spi.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h \
- ../Core/Inc/i2c.h ../Core/Inc/main.h ../Core/Inc/spi.h ../Core/Inc/tim.h \
- ../Core/Inc/gpio.h ../Core/Inc/statemachine.h ../Core/Inc/oled.h \
- ../Core/Inc/spi.h ../Core/Inc/tim.h ../Core/Inc/rtc.h
+ ../Core/Inc/oled.h ../Core/Inc/spi.h ../Core/Inc/tim.h ../Core/Inc/rtc.h
+
+../Core/Inc/statemachine.h:
 
 ../Core/Inc/main.h:
 
@@ -88,18 +89,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim.h:
 
 ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_tim_ex.h:
-
-../Core/Inc/i2c.h:
-
-../Core/Inc/main.h:
-
-../Core/Inc/spi.h:
-
-../Core/Inc/tim.h:
-
-../Core/Inc/gpio.h:
-
-../Core/Inc/statemachine.h:
 
 ../Core/Inc/oled.h:
 

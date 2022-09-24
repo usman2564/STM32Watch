@@ -26,8 +26,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "oled.h"
-#include "rtc.h"
+#include "statemachine.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,8 +46,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-char string_buffer[10];
-uint8_t time_values[6] = {0};
+//char string_buffer[10];
+//uint8_t time_values[6] = {0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -93,70 +92,93 @@ int main(void)
   MX_SPI1_Init();
   MX_TIM21_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start(&htim21);
-  OLED_init();
-  RTC_init(0x35, 0x23);
 
-  HAL_Delay(100);
+  struct Watch Watch;
+  Watch_init(&Watch, 0x30, 0x21, 5, 0x23, 0x09, 0x22);
 
-  OLED_setFillColor(0, 0, 0);
-  HAL_Delay(100);
-  OLED_drawRect(0, 0, 95, 63, OLED_FILL_TRUE);
-  HAL_Delay(100);
-  OLED_setFillColor(40, 40, 40);
-  HAL_Delay(100);
-  OLED_drawRect(12, 18, 83, 44, OLED_FILL_FALSE);
+
+//  HAL_TIM_Base_Start(&htim21);
+//  OLED_init();
+//  RTC_init(0x35, 0x23);
+//
+//  HAL_Delay(100);
+//
+//  OLED_setFillColor(0, 0, 0);
+//  HAL_Delay(100);
+//  OLED_drawRect(0, 0, 95, 63, OLED_FILL_TRUE);
+//  HAL_Delay(100);
+//  OLED_setFillColor(40, 40, 40);
+//  HAL_Delay(100);
+//  OLED_drawRect(12, 18, 83, 44, OLED_FILL_FALSE);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	RTC_getTime(time_values);
-	conv_BCD(time_values);
-	sprintf(string_buffer, "%d%d:%d%d:%d%d", time_values[4] , time_values[5], time_values[2], time_values[3], time_values[0], time_values[1]);
-	OLED_drawString(string_buffer, 16, 24);
 
-	while(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_2) == GPIO_PIN_RESET)
+	switch(Watch.WatchState)
 	{
-		if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_10) == GPIO_PIN_RESET)
-		{
-			time_values[3]++;
 
-			if(time_values[3] > 9)
-			{
-				time_values[3] = 0;
-				time_values[2]++;
-				if(time_values[2] > 5)
-					time_values[2] = 0;
-			}
-			sprintf(string_buffer, "%d%d:%d%d:%d%d", time_values[4] , time_values[5], time_values[2], time_values[3], time_values[0], time_values[1]);
-			OLED_drawString(string_buffer, 16, 24);
-			RTC_updateMins(time_values[2], time_values[3]);
-		}
-
-		if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11) == GPIO_PIN_RESET)
-		{
-			time_values[5]++;
-
-			if(time_values[5] > 9 && time_values[4] != 2)
-			{
-				time_values[5] = 0;
-				time_values[4]++;
-			}
-
-			if(time_values[5] > 3 && time_values[4] == 2)
-			{
-				time_values[5] = 0;
-				time_values[4] = 0;
-			}
-
-			sprintf(string_buffer, "%d%d:%d%d:%d%d", time_values[4] , time_values[5], time_values[2], time_values[3], time_values[0], time_values[1]);
-			OLED_drawString(string_buffer, 16, 24);
-			RTC_updateHours(time_values[4], time_values[5]);
-		}
+		case Get_Time:
+			Watch_Get_Time_State(&Watch);
+			break;
+		case Display_Time:
+			Watch_Display_Time_State(&Watch);
+			break;
+		case Get_Date:
+			Watch_Get_Date_State(&Watch);
+			break;
+		case Display_Date:
+			Watch_Display_Date_State(&Watch);
+			break;
 
 	}
+//	RTC_getTime(time_values);
+//	conv_BCD(time_values);
+//	sprintf(string_buffer, "%d%d:%d%d:%d%d", time_values[4] , time_values[5], time_values[2], time_values[3], time_values[0], time_values[1]);
+//	OLED_drawString(string_buffer, 16, 24);
+
+//	while(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_2) == GPIO_PIN_RESET)
+//	{
+//		if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_10) == GPIO_PIN_RESET)
+//		{
+//			time_values[3]++;
+//
+//			if(time_values[3] > 9)
+//			{
+//				time_values[3] = 0;
+//				time_values[2]++;
+//				if(time_values[2] > 5)
+//					time_values[2] = 0;
+//			}
+//			sprintf(string_buffer, "%d%d:%d%d:%d%d", time_values[4] , time_values[5], time_values[2], time_values[3], time_values[0], time_values[1]);
+//			OLED_drawString(string_buffer, 16, 24);
+//			RTC_updateMins(time_values[2], time_values[3]);
+//		}
+//
+//		if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11) == GPIO_PIN_RESET)
+//		{
+//			time_values[5]++;
+//
+//			if(time_values[5] > 9 && time_values[4] != 2)
+//			{
+//				time_values[5] = 0;
+//				time_values[4]++;
+//			}
+//
+//			if(time_values[5] > 3 && time_values[4] == 2)
+//			{
+//				time_values[5] = 0;
+//				time_values[4] = 0;
+//			}
+//
+//			sprintf(string_buffer, "%d%d:%d%d:%d%d", time_values[4] , time_values[5], time_values[2], time_values[3], time_values[0], time_values[1]);
+//			OLED_drawString(string_buffer, 16, 24);
+//			RTC_updateHours(time_values[4], time_values[5]);
+//		}
+//
+//	}
 
     /* USER CODE END WHILE */
 
